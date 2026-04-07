@@ -3,33 +3,30 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int[][] A = new int[n][n];
-        int[][] B = new int[n][n];
-        int[][] C = new int[n][n];
+        int[] stack = new int[n]; // max size = n operations
+        int top = -1;
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                A[i][j] = sc.nextInt();
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                B[i][j] = sc.nextInt();
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                C[i][j] = 0;
-                for (int k = 0; k < n; k++) {
-                    C[i][j] += A[i][k] * B[k][j];
+            String op = sc.next();
+            if (op.equals("PUSH")) {
+                int x = sc.nextInt();
+                top++;
+                stack[top] = x;
+            } else if (op.equals("POP")) {
+                if (top == -1) {
+                    System.out.println("EMPTY");
+                } else {
+                    System.out.println(stack[top]);
+                    top--;
                 }
+            } else if (op.equals("PEEK")) {
+                if (top == -1) {
+                    System.out.println("EMPTY");
+                } else {
+                    System.out.println(stack[top]);
+                }
+            } else if (op.equals("SIZE")) {
+                System.out.println(top + 1);
             }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(C[i][j]);
-                if (j < n - 1) System.out.print(" ");
-            }
-            System.out.println();
         }
     }
 }
